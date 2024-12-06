@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden</title>
+    <link rel="stylesheet" href="final.css">
+</head>
+
+<div id="rectangle1">
+    <nav>
+        <ul>
+            <div id="rectangle2"><li><a href="final.html">Garden</a></li></div>
+            <div id="rectangle2"> <li><a href="finalpage2.html">Greenhouse</a></li></div>
+        </ul>
+    </nav>
+</div>
+
+<body>
+    <br></br>
+    <br></br>
+
+    <button id="infoButton" class="infoButton">How to Play</button>
+
+    <div id="infoScreenPopup" class="popup hidden">
+        <div class="popup-content">
+            <h2>How to Play</h2>
+                <ol>
+                    <li>Select a plant from the dropdown menu.</li>
+                    <li>Click on the dirt plot to plant your sapling.</li>
+                    <li>Use the water button to grow your plants.</li>
+                    <li>Fully grown plants will appear in the greenhouse!</li>
+                </ol>
+            </p>
+            <button id="closeInfoButton" class="closeButton">Close</button>
+        </div>
+    </div>
+  
+    
+    <div id="rectangle3">
+        <select id="plantSelect">
+            <option value="piranha_plant">Piranha Plant</option>
+            <option value="pikmin">Pikmin</option>
+            <option value="sunflower">Sunflower</option>
+        </select>
+    </div>
+
+    <br></br>
+    <button id="waterButton">Water</button>
+
+    <div id="garden">
+        <div class="pot" data-stage="0" onclick="plantInPot(this)"></div>
+    </div>
+
+    <script>
+        let selectedPlant = "piranhaplant";                     // default selected plant
+
+        document.getElementById('plantSelect').addEventListener('change', (e) => {
+            selectedPlant = e.target.value;
+        });
+
+        function plantInPot(pot) {
+            if (pot.dataset.stage === "0") {                    // if pot is empty 
+                const img = document.createElement("img");
+                img.src = `sapling.png`;                        // shared sapling image
+                img.alt = "Sapling";
+                img.style.width = "100%";
+                img.style.height = "auto";
+                pot.innerHTML = ""; 
+                pot.appendChild(img); 
+                pot.dataset.stage = "1";                        // stage 1
+                pot.dataset.plantType = selectedPlant;          // store the selected plant type
+                    } else if (pot.dataset.stage === "1") {     // if pot is full > alert the user to click the water button
+                    alert("Click 'Water' to grow your plant!");
+                    }
+        }
+
+        document.getElementById('waterButton').addEventListener('click', () => {
+            const pots = document.querySelectorAll('.pot'); 
+            pots.forEach(pot => {
+                const img = pot.querySelector("img");           
+                const plantType = pot.dataset.plantType;        // checks which plant type is in the pot
+                const stage = pot.dataset.stage;                // checks the plants stage of growth
+
+                if (img && stage === "1") {
+                    img.src = `${plantType}_stage2.png`;        
+                    img.alt = `${plantType} growing`; 
+                    pot.dataset.stage = "2";                    // changes stage to 2
+                    } else if (img && stage === "2") {
+                        img.src = `${plantType}_stage3.png`;   
+                        img.alt = `${plantType} fully grown`; 
+                        pot.dataset.stage = "3";                        // changes stage to 3 aka fully grown
+                        saveFullyGrownPlant(`${plantType}_stage3.png`); // saves the fully grown plant to be transfered to the greenhouse (page 2)
+                    }
+                });
+            });
+
+            //this section is used for sending fully grown plants to the greenhouse (page 2) and ensuring the data is loaded/saved correctly
+            function saveFullyGrownPlant(plantImage) {
+            let fullyGrownPlants = JSON.parse(localStorage.getItem('grownPlants')) || [];
+            if (fullyGrownPlants.length < 3) {
+            fullyGrownPlants.push(plantImage);                                     // save the plant image URL
+            localStorage.setItem('grownPlants', JSON.stringify(fullyGrownPlants));
+            }
+            }
+
+            window.addEventListener('beforeunload', () => {                     // check if a reload flag is set in sessionStorage
+            if (!sessionStorage.getItem('isReloading')) {
+            localStorage.clear();                                               // clears localStorage only if not a reload
+            console.log("Local storage cleared because the tab was closed.");   // console log message for closing tab; gardenhouse only resets when closing the page
+            } else {
+            sessionStorage.removeItem('isReloading');                           // otherwise remove the reload flag 
+            }
+            });
+
+        
+        window.addEventListener('unload', () => {                               // set the reload flag when the page is being reloaded
+            sessionStorage.setItem('isReloading', 'true');
+        });
+
+        document.getElementById('infoButton').addEventListener('click', () => {         // how to play popup
+        const infoScreenPopup = document.getElementById('infoScreenPopup');
+        infoScreenPopup.classList.remove('hidden'); 
+        });
+
+        document.getElementById('closeInfoButton').addEventListener('click', () => {    // closes how to play popup
+        const infoScreenPopup = document.getElementById('infoScreenPopup');
+        infoScreenPopup.classList.add('hidden'); 
+        });
+    </script>
+</body>
+
+</html>

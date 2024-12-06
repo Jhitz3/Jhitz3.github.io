@@ -1,0 +1,285 @@
+#garden {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+.gardenpot {
+    width: 250px;
+    height: 250px;
+    background-color: #c2a375;
+    border: 2px solid #8b5a2b;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+.pot {
+    width: 120px;
+    height: 120px;
+    background-color: #c2a375;
+    border: 2px solid #8b5a2b;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+.pot img {
+    width: 100%;
+    height: auto;
+}
+.container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.biggap {
+    padding-top: 250px;
+}
+body {
+    background-color: #BCF4DE;
+}
+nav     {  
+    font-weight: bold; 
+    padding: 0; 
+    font-size: 120%; 
+    text-align: center; 
+    max-width: 1600px; 
+} 
+nav a   {   
+    text-decoration: none; 
+    display: block; 
+    padding: 0; 
+}  
+nav ul  {   
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em; 
+    display: flex; 
+    justify-content: center; 
+}
+nav a:link {    
+    color: #256185; 
+}
+nav a:visited { 
+    color: #256185; 
+}
+nav a:hover { 
+    font-size: 125%;
+    font-style: italic; 
+    color: #4993c2;
+    transform: scale(1.05); 
+}
+#rectangle1 { 
+    width: 98;
+    height:75px;
+    background-color:#DED6D1;
+    margin-left: 25%;
+    margin-right: 25%; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    margin-top: 2em; 
+    border-radius: 7px;
+    box-shadow: 0 6px 20px #a2e7cc;
+}
+#rectangle2 { 
+    width:200px;
+    height:50px;
+    background-color:#F7B2BD;
+    margin-left: 30px;
+    margin-right: 30px; 
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center; 
+    transition: all 0.2s ease;
+    border-radius: 40px;
+    box-shadow: 5px 6px 6px #c08c95;
+}
+#rectangle3 {
+    width:200px;
+    height:50px;
+    background-color: #B5E2FA;
+    display: flex;
+    border-radius: 2px;
+    font-size: 1.2em; 
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5%;
+    box-shadow: 5px 6px 10px #99e2c6;
+}
+#plantSelect {
+    width:200px;
+    height:50px;
+    background-color: #B5E2FA;
+    display: flex;
+    border-radius: 2px;
+    font-size: 1.2em; 
+    font-weight: bold;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5%;
+}
+
+/*used https://www.sliderrevolution.com/resources/css-ripple-effect/ for ideas on ripple effect for water button*/
+
+#waterButton {
+    width:200px;
+    height:50px;
+    background-color: #B5E2FA;
+    display: flex;
+    border-radius: 2px;
+    font-size: 1.2em; 
+    font-weight: bold;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5%;
+}
+#waterButton:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 6px 20px #0066cc;
+}
+#waterButton {
+    background: linear-gradient(135deg, #00aaff, #0066cc); 
+    color: white; 
+    border: none; 
+    border-radius: 50px; 
+    padding: 15px 30px; 
+    font-size: 18px; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    box-shadow: 0 4px 15px #0066ccbf; 
+    position: relative; 
+    overflow: hidden; 
+    transition: transform 0.2s ease, box-shadow 0.3s ease; 
+}
+#waterButton:active {
+    transform: scale(0.95); 
+    box-shadow: 0 3px 10px #0066ccbf; 
+}
+#waterButton::before {
+    content: ""; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%; 
+    height: 200%;
+    background: radial-gradient(circle, #ffffff4d, #00aaff1a);
+    opacity: 0; 
+    transform: scale(0); 
+    animation: ripple 3s infinite ease-in-out; 
+    pointer-events: none; 
+}
+@keyframes ripple {     /*animation*/
+    0% {
+        opacity: 0.5;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+.infoButton {
+    position: fixed;
+    top: 20px; 
+    right: 20px; 
+    padding: 10px 20px; 
+    background-color: #2d89ef; 
+    color: #ffffff; 
+    border: none; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    box-shadow: 4px 4px 6px #00000033; 
+    transition: all 0.3s ease; 
+}
+.infoButton:hover {
+    background-color: #1e5fb9; 
+    box-shadow: 0 6px 8px #0000004d; 
+}
+.infoScreen {
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; 
+    max-width: 400px;
+    padding: 20px;
+    background-color: #ffffff; 
+    border-radius: 10px; 
+    box-shadow: 0 8px 16px #0000004d; 
+    z-index: 1000; 
+    text-align: center; 
+    display: none; 
+}
+.infoScreen h2 {
+    margin-bottom: 10px; 
+    color: #2d89ef; 
+}
+.infoScreen p {
+    margin: 8px 0; 
+    font-size: 14px; 
+}
+.container .gardenpot {
+    cursor: pointer;
+}
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000099;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.popup.hidden {
+    display: none;
+}
+.popup-content {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 8px #00000033;
+}
+.popup-content h2 {
+    color: #2d89ef;
+}
+.popup-content p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+.closeButton {
+    background: #dd6bb7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.closeButton:hover {
+    background: #bd4c97;
+}
+ol {
+    text-align: left;
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenhouse</title>
+    <link rel="stylesheet" href="final.css">
+</head>
+
+<div id="rectangle1">
+    <nav>
+        <ul>
+            <div id="rectangle2"><li><a href="final.html">Garden</a></li></div>
+            <div id="rectangle2"><li><a href="finalpage2.html">Greenhouse</a></li></div>
+        </ul>
+    </nav>
+</div>
+
+<div class="biggap"></div>
+
+<div class="container">
+    <div class="gardenpot" id="pot1"></div>
+    <div class="gardenpot" id="pot2"></div>
+    <div class="gardenpot" id="pot3"></div>
+</div>
+
+<div class="container">
+</div>
+
+<div id="plantInfoPopup" class="popup hidden"> 
+    <div class="popup-content">
+        <h2 id="plantTitle">Plant Information</h2>
+        <p id="plantDescription">This is a placeholder description for the plant.</p>
+        <button id="closePopup" class="closeButton">Close</button>
+    </div>
+</div>
+
+<script>
+       document.addEventListener('DOMContentLoaded', () => {
+            const fullyGrownPlants = JSON.parse(localStorage.getItem('grownPlants')) || [];
+            const potIds = ['pot1', 'pot2', 'pot3'];
+
+            const plantInfo = {                                 // info pages about each plant type
+                "piranhaplant_stage3.png": {
+                    title: "Piranha Plant",
+                    description: "One of the popular plants from Mario! It has a big red head with white spots and lips and sharp teeth."
+                },
+                "pikmin_stage3.png": {
+                    title: "Pikmin",
+                    description: "This is a red Pikmin from the Pikmin games! He has a fully bloomed flower!"
+                },
+                "sunflower_stage3.png": {
+                    title: "Sunflower",
+                    description: "The sunflower plant from Plants VS Zombies. He will help produce sunlight for the player!"
+                }
+                };
+
+            const popup = document.getElementById('plantInfoPopup');
+            const plantTitle = document.getElementById('plantTitle');
+            const plantDescription = document.getElementById('plantDescription');
+            const closePopupButton = document.getElementById('closePopup');
+
+            potIds.forEach((potId, index) => {
+                const pot = document.getElementById(potId);
+
+                if (fullyGrownPlants[index]) {
+                    const img = document.createElement('img');
+                    img.src = fullyGrownPlants[index];
+                    img.alt = "Fully grown plant";
+                    img.style.width = "100%";
+                    img.style.height = "auto";
+
+                    pot.innerHTML = ""; 
+                    pot.appendChild(img);
+
+                    pot.addEventListener('click', () => {                   //brings up plant info popup
+                        const info = plantInfo[fullyGrownPlants[index]];
+                        if (info) {
+                            plantTitle.textContent = info.title;
+                            plantDescription.textContent = info.description;
+                            popup.classList.remove('hidden'); 
+                        }
+                    });
+                }
+            });
+
+            closePopupButton.addEventListener('click', () => {             // closes plant info popup
+                popup.classList.add('hidden'); 
+            });
+        });
+</script>
+</html>
